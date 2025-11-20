@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowRight, Star } from 'lucide-react';
-import { AppView } from '../types';
 
 interface HeroProps {
   onBookNow: () => void;
@@ -9,51 +8,71 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onBookNow, onConsult }) => {
   return (
-    <section className="relative w-full h-screen min-h-[700px] flex items-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" 
-          alt="Modern Salon Interior" 
-          className="w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-stone-100/90 via-stone-100/50 to-transparent"></div>
+    <section className="relative w-full min-h-screen flex items-center overflow-hidden bg-stone-50">
+      {/* Split Layout Background */}
+      <div className="absolute inset-0 flex flex-col md:flex-row z-0">
+        <div className="w-full md:w-1/2 bg-stone-100 relative hidden md:block">
+             {/* Decorative Elements */}
+             <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-stone-100 to-transparent z-10"></div>
+        </div>
+        <div className="w-full md:w-1/2 h-full relative">
+           <div className="absolute inset-0 bg-stone-900/10 z-10 md:hidden"></div>
+           <img 
+            src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?q=80&w=1920&auto=format&fit=crop" 
+            alt="Editorial Hair Model" 
+            className="w-full h-full object-cover object-top animate-scale-in"
+          />
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20">
-        <div className="max-w-2xl">
-          <div className="flex items-center gap-2 mb-4 animate-fade-in-up">
-            <div className="flex text-gold-500">
-              {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+      {/* Content Container */}
+      <div className="relative z-20 max-w-7xl mx-auto px-6 w-full h-full flex items-center">
+        <div className="w-full md:w-1/2 pt-20 md:pt-0">
+          <div className="max-w-xl">
+            <div className="flex items-center gap-3 mb-6 animate-fade-in-up opacity-0" style={{ animationDelay: '0.1s' }}>
+              <div className="h-px w-8 bg-gold-500"></div>
+              <span className="text-xs font-bold tracking-[0.3em] uppercase text-gold-600">Est. 2024</span>
             </div>
-            <span className="text-xs font-bold tracking-widest uppercase text-stone-500">Rated #1 in Carolina</span>
-          </div>
-          
-          <h1 className="font-serif text-5xl md:text-7xl text-stone-900 leading-[1.1] mb-6">
-            Redefining <br/>
-            <span className="italic text-gold-700">Modern Beauty</span>
-          </h1>
-          
-          <p className="text-stone-600 text-lg md:text-xl mb-10 leading-relaxed max-w-lg">
-            Experience expert artistry in a space designed for your comfort. From precision cuts to transformative color, we bring your vision to life.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            <button 
-              onClick={onBookNow}
-              className="px-8 py-4 bg-stone-900 text-white font-medium tracking-wider hover:bg-stone-800 transition-colors flex items-center justify-center gap-2 group"
-            >
-              Book Appointment
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </button>
             
-            <button 
-              onClick={onConsult}
-              className="px-8 py-4 bg-white border border-stone-300 text-stone-900 font-medium tracking-wider hover:bg-stone-50 transition-colors flex items-center justify-center gap-2"
-            >
-               <span>✨ AI Style Consultant</span>
-            </button>
+            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-stone-900 leading-[0.95] mb-8 animate-fade-in-up opacity-0" style={{ animationDelay: '0.3s' }}>
+              Artistry <br/>
+              <span className="italic font-light text-stone-600">in motion.</span>
+            </h1>
+            
+            <p className="text-stone-600 text-lg leading-relaxed mb-12 max-w-md animate-fade-in-up opacity-0" style={{ animationDelay: '0.5s' }}>
+              Experience a sanctuary where modern technique meets timeless beauty. We craft styles that are uniquely yours.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-5 animate-fade-in-up opacity-0" style={{ animationDelay: '0.7s' }}>
+              <button 
+                onClick={onBookNow}
+                className="group px-8 py-4 bg-stone-900 text-white text-sm font-medium tracking-widest uppercase hover:bg-gold-600 transition-all duration-300 flex items-center justify-center gap-3"
+              >
+                Book Appointment
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+              
+              <button 
+                onClick={onConsult}
+                className="group px-8 py-4 bg-transparent border border-stone-300 text-stone-900 text-sm font-medium tracking-widest uppercase hover:border-stone-900 hover:bg-stone-50 transition-all duration-300"
+              >
+                 AI Consultation
+              </button>
+            </div>
+
+            <div className="mt-16 flex items-center gap-4 animate-fade-in-up opacity-0" style={{ animationDelay: '0.9s' }}>
+               <div className="flex -space-x-3">
+                  <img src="https://randomuser.me/api/portraits/women/44.jpg" className="w-10 h-10 rounded-full border-2 border-white" alt="Client"/>
+                  <img src="https://randomuser.me/api/portraits/women/68.jpg" className="w-10 h-10 rounded-full border-2 border-white" alt="Client"/>
+                  <img src="https://randomuser.me/api/portraits/women/32.jpg" className="w-10 h-10 rounded-full border-2 border-white" alt="Client"/>
+               </div>
+               <div className="flex flex-col">
+                 <div className="flex text-gold-500 mb-1">
+                   {[...Array(5)].map((_, i) => <Star key={i} size={12} fill="currentColor" />)}
+                 </div>
+                 <span className="text-xs text-stone-500 font-medium"><span className="font-bold text-stone-900">4.9/5</span> from 500+ reviews</span>
+               </div>
+            </div>
           </div>
         </div>
       </div>

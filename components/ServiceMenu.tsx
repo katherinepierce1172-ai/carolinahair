@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SERVICES } from '../constants';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const ServiceMenu: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -12,64 +12,64 @@ const ServiceMenu: React.FC = () => {
   const categories = ['all', 'hair', 'color', 'treatment', 'styling'];
 
   return (
-    <section className="py-24 bg-white" id="services">
+    <section className="py-32 bg-white" id="services">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-4">Our Services</h2>
-          <p className="text-stone-500 max-w-xl mx-auto">
-            Tailored treatments designed to enhance your natural beauty and maintain the health of your hair.
-          </p>
-        </div>
-
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-6 py-2 rounded-full text-sm font-medium uppercase tracking-wider transition-all ${
-                activeCategory === cat 
-                  ? 'bg-stone-900 text-white shadow-lg' 
-                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          <div className="max-w-2xl">
+            <span className="text-gold-600 font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Our Menu</span>
+            <h2 className="font-serif text-5xl md:text-6xl text-stone-900 leading-tight">
+              Curated Services
+            </h2>
+          </div>
+          
+          {/* Category Filter */}
+          <div className="flex flex-wrap gap-2">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                  activeCategory === cat 
+                    ? 'bg-stone-900 text-white' 
+                    : 'bg-stone-100 text-stone-500 hover:bg-stone-200 hover:text-stone-900'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Service Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
           {filteredServices.map((service) => (
             <div 
               key={service.id}
-              className="group bg-white rounded-xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
+              className="group cursor-pointer"
             >
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-80 overflow-hidden rounded-sm mb-6">
+                <div className="absolute inset-0 bg-stone-900/20 group-hover:bg-stone-900/0 transition-colors z-10 duration-500"></div>
                 <img 
                   src={service.image} 
                   alt={service.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-semibold text-stone-900">
+                <div className="absolute bottom-4 left-4 z-20 bg-white/90 backdrop-blur-sm px-4 py-2 text-sm font-serif font-medium text-stone-900">
                   {service.price}
                 </div>
               </div>
               
-              <div className="p-8 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="font-serif text-2xl text-stone-900 group-hover:text-gold-700 transition-colors">
-                    {service.name}
-                  </h3>
-                </div>
-                <p className="text-stone-500 text-sm leading-relaxed mb-6 flex-1">
+              <div className="flex flex-col border-l-2 border-transparent group-hover:border-gold-500 pl-0 group-hover:pl-4 transition-all duration-300">
+                <h3 className="font-serif text-2xl text-stone-900 mb-2">
+                  {service.name}
+                </h3>
+                <p className="text-stone-500 text-sm leading-relaxed mb-4 line-clamp-2">
                   {service.description}
                 </p>
                 
-                <button className="mt-auto w-full py-3 border-t border-stone-100 flex items-center justify-between text-stone-800 font-medium text-sm uppercase tracking-wider group-hover:text-gold-700 transition-colors">
-                  Book This Service
-                  <ArrowUpRight size={18} />
-                </button>
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-stone-400 group-hover:text-gold-600 transition-colors">
+                  Book Now <ArrowRight size={14} />
+                </div>
               </div>
             </div>
           ))}

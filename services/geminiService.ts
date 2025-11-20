@@ -28,6 +28,7 @@ export const getHairConsultation = async (profile: UserHairProfile): Promise<Sty
     - Hair Goals: ${profile.goals}
 
     Provide a sophisticated, trendy, and personalized recommendation.
+    Ensure the tone is professional, encouraging, and high-end.
   `;
 
   try {
@@ -54,8 +55,11 @@ export const getHairConsultation = async (profile: UserHairProfile): Promise<Sty
       }
     });
 
-    if (response.text) {
-      return JSON.parse(response.text) as StylistRecommendation;
+    const text = response.text;
+    if (text) {
+      // Robust parsing: strip markdown code blocks if present
+      const cleanText = text.replace(/^```json\s*/, "").replace(/\s*```$/, "");
+      return JSON.parse(cleanText) as StylistRecommendation;
     }
     return null;
   } catch (error) {

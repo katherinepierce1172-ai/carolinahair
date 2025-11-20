@@ -1,8 +1,5 @@
 {
   "name": "Carolina Hair Studios - Modern Experience",
   "description": "A modern, high-end digital experience for Carolina Hair Studios featuring an AI-powered Virtual Hair Consultant.",
-  "requestFramePermissions": [
-    "camera",
-    "microphone"
-  ]
+  "requestFramePermissions": []
 }

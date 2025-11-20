@@ -57,9 +57,15 @@ export const getHairConsultation = async (profile: UserHairProfile): Promise<Sty
 
     const text = response.text;
     if (text) {
-      // Robust parsing: strip markdown code blocks if present
-      const cleanText = text.replace(/^```json\s*/, "").replace(/\s*```$/, "");
-      return JSON.parse(cleanText) as StylistRecommendation;
+      // Robust parsing: extract JSON object by finding first '{' and last '}'
+      // This handles cases where the model adds markdown (```json) or conversational intro text
+      const firstOpen = text.indexOf('{');
+      const lastClose = text.lastIndexOf('}');
+      
+      if (firstOpen !== -1 && lastClose !== -1) {
+        const jsonStr = text.substring(firstOpen, lastClose + 1);
+        return JSON.parse(jsonStr) as StylistRecommendation;
+      }
     }
     return null;
   } catch (error) {

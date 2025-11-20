@@ -1,18 +1,27 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { StylistRecommendation, UserHairProfile } from '../types';
 
-const apiKey = process.env.API_KEY;
-// Initialize safely
+// Safely access process.env to avoid ReferenceError in some browser environments
+const getApiKey = () => {
+  try {
+    return process.env.API_KEY;
+  } catch (e) {
+    console.warn("process.env not available");
+    return undefined;
+  }
+};
+
+const apiKey = getApiKey();
 const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 export const getHairConsultation = async (profile: UserHairProfile): Promise<StylistRecommendation | null> => {
   if (!ai) {
-    console.error("API Key missing");
+    console.error("API Key missing - GoogleGenAI client not initialized");
     return {
       styleName: "Demo Mode - API Key Missing",
-      description: "Please configure your API key to get real AI recommendations.",
+      description: "Please configure your API key in the environment variables to get real AI recommendations.",
       maintenanceLevel: "N/A",
-      reasoning: "System check failed.",
+      reasoning: "System check failed: API Key not found.",
       products: ["Configuration needed"]
     };
   }
